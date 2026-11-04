@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1040" viewBox="0 0 1680 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Hyper Delivery streaming data pipeline architecture</title>
+  <desc id="desc">Python and Faker generate four event types, publish them to Kafka, then a Kafka S3 Sink Connector writes raw JSON to Amazon S3. Snowflake reads the staged files into Bronze, transforms them into Silver, and creates Gold business aggregates.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#edf4fa"/>
+    </linearGradient>
+    <linearGradient id="head" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10243a"/>
+      <stop offset="100%" stop-color="#174c64"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#15324a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#43758a"/>
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="8.8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8b9aaa"/>
+    </marker>
+    <style>
+      .title { font: 700 36px 'Segoe UI', Arial, sans-serif; fill: #ffffff; letter-spacing: .4px; }
+      .subtitle { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #d3e7ef; }
+      .section { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #35556a; letter-spacing: 1.5px; }
+      .nodeTitle { font: 700 23px 'Segoe UI', Arial, sans-serif; fill: #173247; }
+      .nodeSub { font: 400 16px 'Segoe UI', Arial, sans-serif; fill: #526b7b; }
+      .small { font: 600 13px 'Segoe UI', Arial, sans-serif; letter-spacing: 1px; }
+      .detail { font: 400 15px 'Segoe UI', Arial, sans-serif; fill: #425b6d; }
+      .footTitle { font: 700 17px 'Segoe UI', Arial, sans-serif; fill: #173247; }
+      .foot { font: 400 15px 'Segoe UI', Arial, sans-serif; fill: #526b7b; }
+      .badgeText { font: 700 13px 'Segoe UI', Arial, sans-serif; fill: #17634f; }
+    </style>
+  </defs>
+
+  <rect width="1680" height="1040" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1680" height="155" fill="url(#head)"/>
+  <text x="78" y="67" class="title">HYPER DELIVERY</text>
+  <text x="78" y="105" class="subtitle">Streaming quick-commerce events · Amazon S3 data lake · Snowflake medallion warehouse</text>
+  <rect x="1355" y="48" width="245" height="42" rx="21" fill="#d9f6ea"/>
+  <circle cx="1380" cy="69" r="7" fill="#19966f"/>
+  <text x="1398" y="74" class="badgeText">VALIDATED THROUGH GOLD</text>
+
+  <text x="80" y="210" class="section">01 · EVENT GENERATION &amp; LANDING</text>
+  <text x="80" y="565" class="section">02 · WAREHOUSE TRANSFORMATION</text>
+
+  <!-- Top-row nodes -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="245" width="330" height="235" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="80" y="245" width="330" height="13" rx="7" fill="#317c99"/>
+    <rect x="108" y="282" width="52" height="52" rx="13" fill="#e2f1f7"/>
+    <text x="134" y="316" text-anchor="middle" font-size="27" fill="#246d89">{ }</text>
+    <text x="108" y="375" class="nodeTitle">Python + Faker</text>
+    <text x="108" y="408" class="nodeSub">Four event generators</text>
+    <text x="108" y="445" class="detail">Orders · Deliveries</text>
+    <text x="108" y="467" class="detail">Products · Riders</text>
+
+    <rect x="490" y="245" width="330" height="235" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="490" y="245" width="330" height="13" rx="7" fill="#317c99"/>
+    <rect x="518" y="282" width="52" height="52" rx="13" fill="#e2f1f7"/>
+    <path d="M530 295h28M530 305h28M530 315h28" stroke="#246d89" stroke-width="3" stroke-linecap="round"/>
+    <text x="518" y="375" class="nodeTitle">Confluent Kafka</text>
+    <text x="518" y="408" class="nodeSub">Four event topics</text>
+    <text x="518" y="445" class="detail">Keyed event publishing</text>
+    <text x="518" y="467" class="detail">Producer flush acknowledgements</text>
+
+    <rect x="900" y="245" width="330" height="235" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="900" y="245" width="330" height="13" rx="7" fill="#317c99"/>
+    <rect x="928" y="282" width="52" height="52" rx="13" fill="#e2f1f7"/>
+    <path d="M941 315v-17l13-8 13 8v17l-13 8z" fill="none" stroke="#246d89" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="928" y="375" class="nodeTitle">Kafka S3 Sink</text>
+    <text x="928" y="408" class="nodeSub">Connector</text>
+    <text x="928" y="445" class="detail">Consumes topic partitions</text>
+    <text x="928" y="467" class="detail">Flushes JSON objects to S3</text>
+
+    <rect x="1310" y="245" width="290" height="235" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="1310" y="245" width="290" height="13" rx="7" fill="#317c99"/>
+    <rect x="1338" y="282" width="52" height="52" rx="13" fill="#e2f1f7"/>
+    <path d="M1350 307h28M1354 299h20M1358 291h12M1358 315h12" stroke="#246d89" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1338" y="375" class="nodeTitle">Amazon S3</text>
+    <text x="1338" y="408" class="nodeSub">Raw JSON landing zone</text>
+    <text x="1338" y="445" class="detail">Four topic prefixes</text>
+    <text x="1338" y="467" class="detail">Year / month / day / hour</text>
+  </g>
+
+  <!-- top arrows -->
+  <path d="M410 362 H480" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <path d="M820 362 H890" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <path d="M1230 362 H1300" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Down then left into Snowflake stage -->
+  <path d="M1455 480 V525 H245 V610" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+  <rect x="650" y="503" width="400" height="44" rx="18" fill="#ffffff" stroke="#c9dce8" stroke-width="1.5"/>
+  <text x="850" y="530" text-anchor="middle" class="small" fill="#43758a">EXISTING EXTERNAL STAGE · MANUALLY QUERIED</text>
+
+  <!-- Bottom row -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="620" width="330" height="220" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="80" y="620" width="330" height="13" rx="7" fill="#b47b35"/>
+    <rect x="108" y="657" width="52" height="52" rx="13" fill="#fff1dd"/>
+    <path d="M121 672h26v22h-26zM126 667h26v22" fill="none" stroke="#9c6829" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="108" y="750" class="nodeTitle">Snowflake Stage</text>
+    <text x="108" y="780" class="nodeSub">S3_RAW_STAGE + JSON_FORMAT</text>
+    <text x="108" y="815" class="detail">Reads raw objects from S3</text>
+
+    <rect x="490" y="620" width="330" height="220" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="490" y="620" width="330" height="13" rx="7" fill="#b47b35"/>
+    <rect x="518" y="657" width="52" height="52" rx="13" fill="#fff1dd"/>
+    <path d="M531 670h26v28h-26zM536 677h16M536 684h16M536 691h12" fill="none" stroke="#9c6829" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="518" y="750" class="nodeTitle">Bronze</text>
+    <text x="518" y="780" class="nodeSub">Four raw event tables</text>
+    <text x="518" y="815" class="detail">VARIANT payload + file lineage</text>
+
+    <rect x="900" y="620" width="330" height="220" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="900" y="620" width="330" height="13" rx="7" fill="#26977d"/>
+    <rect x="928" y="657" width="52" height="52" rx="13" fill="#e0f6ee"/>
+    <path d="M941 670h26v28h-26zM946 677h16M946 684h16M946 691h12" fill="none" stroke="#19775f" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="928" y="750" class="nodeTitle">Silver</text>
+    <text x="928" y="780" class="nodeSub">Four typed event tables</text>
+    <text x="928" y="815" class="detail">Cleaned values + ingestion time</text>
+
+    <rect x="1310" y="620" width="290" height="220" rx="22" fill="#ffffff" stroke="#c9dce8" stroke-width="2"/>
+    <rect x="1310" y="620" width="290" height="13" rx="7" fill="#236aaf"/>
+    <rect x="1338" y="657" width="52" height="52" rx="13" fill="#e5efff"/>
+    <path d="M1349 697v-13h8v13M1360 697v-23h8v23M1371 697v-32h8v32" fill="none" stroke="#225d9c" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1338" y="750" class="nodeTitle">Gold</text>
+    <text x="1338" y="780" class="nodeSub">Four aggregate tables</text>
+    <text x="1338" y="815" class="detail">Business-ready metrics</text>
+  </g>
+
+  <path d="M410 730 H480" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <path d="M820 730 H890" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <path d="M1230 730 H1300" stroke="#43758a" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Footer notes -->
+  <rect x="80" y="890" width="1520" height="100" rx="18" fill="#e2edf4" stroke="#c5d8e4"/>
+  <text x="110" y="925" class="footTitle">Validated walkthrough</text>
+  <text x="110" y="956" class="foot">40 Kafka messages acknowledged · 22 S3 objects · 44 staged / Bronze / Silver records · 21 Gold aggregate rows</text>
+  <line x1="1040" y1="910" x2="1040" y2="970" stroke="#bdcfda" stroke-width="2"/>
+  <text x="1070" y="925" class="footTitle">Execution boundary</text>
+  <text x="1070" y="956" class="foot">Snowflake SQL steps were manually triggered; orchestration is future work.</text>
+</svg>
