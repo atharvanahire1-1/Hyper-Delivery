@@ -1,0 +1,9 @@
+flowchart LR
+    A[Python + Faker<br/>Four event generators] --> B[Confluent Kafka<br/>Orders · Deliveries · Products · Riders]
+    B --> C[Kafka S3 Sink Connector]
+    C --> D[(Amazon S3<br/>Raw JSON · year/month/day/hour)]
+    D --> E[Snowflake external stage<br/>JSON file format]
+    E --> F[(Bronze<br/>VARIANT payload + file lineage)]
+    F --> G[(Silver<br/>Typed, cleaned event tables)]
+    G --> H[(Gold<br/>Four business aggregate tables)]
+    H -. optional / not validated .-> I[BI / downstream consumers]

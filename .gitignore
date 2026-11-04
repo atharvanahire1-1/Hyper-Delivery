@@ -1,0 +1,28 @@
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Credentials and private keys
+*.pem
+*.key
+*.p8
+*.p12
+*.ppk
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.idea/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
